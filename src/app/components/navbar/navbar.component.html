@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container">
+    <a class="navbar-brand" href="#">Applications Challenge</a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <ng-container *ngIf="isLoggedIn()">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/applications" routerLinkActive="active">Applications</a>
+          </li>
+          <li class="nav-item">
+            <span class="nav-link text-light">Welcome, {{ currentUser?.username }}</span>
+          </li>
+          <li class="nav-item">
+            <button class="btn btn-outline-light" (click)="logout()">Logout</button>
+          </li>
+        </ng-container>
+
+        <ng-container *ngIf="!isLoggedIn()">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,80 @@
+<div class="container mt-4">
+  <div class="row mb-4">
+    <div class="col">
+      <h2>Applications List</h2>
+    </div>
+    <div class="col-auto">
+      <button class="btn btn-primary" (click)="openForm()">
+        <i class="bi bi-plus-circle me-2"></i>New Application
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal Dialog for New Application Form -->
+  <div class="modal fade" id="applicationFormModal" tabindex="-1" aria-labelledby="applicationFormModalLabel" aria-hidden="true" [ngClass]="{'show': showForm}" [ngStyle]="{'display': showForm ? 'block' : 'none'}" *ngIf="showForm">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="applicationFormModalLabel">Create New Application</h5>
+          <button type="button" class="btn-close" aria-label="Close" (click)="closeForm()"></button>
+        </div>
+        <div class="modal-body">
+          <app-application-form (applicationCreated)="onApplicationCreated($event)"></app-application-form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Backdrop for modal -->
+  <div class="modal-backdrop fade show" *ngIf="showForm" (click)="closeForm()"></div>
+
+  <div *ngIf="loading" class="text-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!loading && !error">
+    <div *ngIf="applications().length === 0" class="alert alert-info">
+      No applications found. Create a new one to get started!
+    </div>
+
+    <div *ngIf="applications().length > 0" class="table-responsive">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Message</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (app of applications(); track app.id) {
+            <tr>
+              <td>{{ app.id }}</td>
+              <td>{{ formatDate(app.date) }}</td>
+              <td><span [ngClass]="getTypeClass(app.type)">{{ app.type }}</span></td>
+              <td><span [ngClass]="getStatusClass(app.status)">{{ app.status }}</span></td>
+            <td>{{ app.message }}</td>
+          </tr>
+
+          }
+
+          <!-- <tr *ngFor="let app of applications">
+            <td>{{ app.id }}</td>
+            <td>{{ formatDate(app.date) }}</td>
+            <td><span [ngClass]="getTypeClass(app.type)">{{ app.type }}</span></td>
+            <td><span [ngClass]="getStatusClass(app.status)">{{ app.status }}</span></td>
+            <td>{{ app.message }}</td>
+          </tr> -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

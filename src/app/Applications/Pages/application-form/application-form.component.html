@@ -1,0 +1,51 @@
+<form [formGroup]="applicationForm" (ngSubmit)="onSubmit()">
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+  </div>
+
+  <div class="mb-3">
+    <label for="type" class="form-label">Type</label>
+    <select
+      id="type"
+      formControlName="type"
+      class="form-select"
+      [ngClass]="{'is-invalid': applicationForm.get('type')?.invalid && applicationForm.get('type')?.touched}">
+      <option *ngFor="let type of applicationTypes" [value]="type.value">
+        {{ type.label }}
+      </option>
+    </select>
+    <div class="invalid-feedback" *ngIf="applicationForm.get('type')?.errors?.['required'] && applicationForm.get('type')?.touched">
+      Type is required
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="message" class="form-label">Message</label>
+    <textarea
+      id="message"
+      formControlName="message"
+      class="form-control"
+      rows="4"
+      [ngClass]="{'is-invalid': applicationForm.get('message')?.invalid && applicationForm.get('message')?.touched}"
+      placeholder="Enter your message here..."></textarea>
+    <div class="invalid-feedback" *ngIf="applicationForm.get('message')?.errors?.['required'] && applicationForm.get('message')?.touched">
+      Message is required
+    </div>
+    <div class="invalid-feedback" *ngIf="applicationForm.get('message')?.errors?.['maxlength']">
+      Message is too long (maximum 1000 characters)
+    </div>
+    <div class="form-text text-end" *ngIf="applicationForm.get('message')?.value">
+      {{ applicationForm.get('message')?.value.length }}/1000
+    </div>
+  </div>
+
+  <div class="d-grid">
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="applicationForm.invalid || submitting">
+      <span *ngIf="submitting" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+      Submit Application
+    </button>
+  </div>
+</form>

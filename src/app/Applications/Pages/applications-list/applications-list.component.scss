@@ -1,0 +1,31 @@
+.badge {
+  font-size: 0.85em;
+}
+
+@keyframes flash {
+  0% { background-color: transparent; }
+  50% { background-color: rgba(25, 135, 84, 0.1); }
+  100% { background-color: transparent; }
+}
+
+.status-updated {
+  animation: flash 1.5s;
+}
+
+/* Modal animations */
+.modal.fade.show {
+  transition: opacity 0.15s linear;
+}
+
+.modal-dialog {
+  transition: transform 0.3s ease-out;
+  transform: translateY(0);
+}
+
+.modal-backdrop.fade {
+  transition: opacity 0.15s linear;
+}
+
+.modal-backdrop.show {
+  opacity: 0.5;
+}

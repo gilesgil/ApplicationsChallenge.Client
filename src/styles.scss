@@ -1,1 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Global styles */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f8f9fa;
+}
+
+.container {
+  margin-top: 2rem;
+}
+
+.card {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+/* Animation for status updates */
+@keyframes highlight {
+  0% {
+    background-color: rgba(255, 193, 7, 0.2);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+.highlight {
+  animation: highlight 2s ease-in-out;
+}
